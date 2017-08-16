@@ -1,5 +1,5 @@
 -----------------------------------------------------
-AGENDA FOR RASPBERRY PI AUGUST 2016
+AGENDA FOR RASPBERRY PI AUGUST 2017
 -----------------------------------------------------
 1. Some linux command line and python stuff
 2. Somehow talk about solitaire and make it relevant 
