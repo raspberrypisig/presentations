@@ -1,0 +1,261 @@
+-----------------------------------------------------
+AGENDA FOR RASPBERRY PI AUGUST 2016
+-----------------------------------------------------
+1. Some linux command line and python stuff
+2. Somehow talk about solitaire and make it relevant 
+   to Raspberry Pi
+3. Some javascript stuff
+4. Some NodeRED stuff
+5. Some get data from a webpage and do 
+   something with it stuff
+---------x-----------------x-----------x-------------
+SIDE COMMENT
+
+1. Always my intention for the Raspberry Pi SIG to be the:
+"How to you write that program for THAT BOARD?" SIG
+---------x-----------------x-----------x-----------
+
+LINUX COMMANDS - history and pinout
+
+HISTORY
+
+But first...Linux command shell fundamentals
+1. Linux command line TAB completion (use of single and 
+   double)
+2. Linux command line cycle through previously typed commands with UP and DOWN arrow keys.
+3. Interesting question asked: If you type a command
+   incorrectly, can you remove it from the history
+   of previously typed commands?
+
+$ history 
+$ history | sed -n "4,6p"
+$ history -d 1
+$ history -w
+
+PINOUT(Draws the GPIO Pins)
+
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ pinout
+$ echo "Enjoy!"
+
+---------x-----------------x-----------x-----------
+
+SOLITAIRE
+
+Solitaire Terms:
+- Stock
+- Waste
+- Foundation
+- Tableaux
+
+---------x-----------------x-----------x-----------
+
+COMPUTER PROGRAMS
+
+Two parts
+1. Programming logic
+   - if, for, while, arithmetic operations, function calls etc.
+2. Program Data and Program state
+
+Examining Program Data and State: 
+
+---------x-----------------x-----------x-----------
+
+ARRAYS AND PLAIN OBJECTS
+
+Programming languages call them different things 
+(eg. Python calls them lists)
+
+I'm going to use the following generic syntax (ie. 
+programming-language agnostic)
+
+---ARRAYS---
+regulars = ["BillD", "BillS", "JohnS", "JohnM"]
+lengthofarray = 4
+
+// Array index is zero-based (ie, first element is index 0)
+
+regulars[0] //BillD
+regulars[1] //BillS
+regulars[2] //JohnS
+regulars[3] //JohnM
+regulars[4] // Out-of-bounds error
+
+---"PLAIN OBJECTS"---
+
+aceofspades = {
+    rank: "Ace",
+    suit: "Spades"
+}
+
+// Accessing object properties
+aceofspades.rank //Ace
+aceofspades.suit //Spades
+
+// Also some languages support array-like syntax
+// to access properties
+aceofspades["rank"] //Ace
+aceofspades["suit"] //Spades
+
+// This syntax is useful when the key value is 
+// stored in a variable
+key = "suit"
+aceofspades[key] //Ace
+
+---------x-----------------x-----------x------------
+ARRAYS AND OBJECTS
+
+1. Arrays: 
+     - Ordered list of items
+     - Order matters
+     - Access by index number (staring with index 0)
+2. Object:
+     - Unordered list of properties
+     - Properties are key/value pairs
+     - Order of properties does not matter
+     - Retrieve property value by its key
+
+---------x-----------------x-----------x-----------
+
+ARRAYS
+
+//Each element is a primitive data type
+bingo_numbers = [45, 54, 89, 23, 39]
+
+//Access array by index number (zero-based)
+bingo_numbers[0] //45
+bingo_numbers[1] //54
+
+// Each element could also be an plain object
+
+car1 = {
+    model: "Daewoo Lanos"
+    year: 2001
+    kilometers: 260000
+}
+
+car2 = {
+    model: "Toyota Corolla"
+    model: 2002
+    kilometers: 155000
+}
+
+cars = [car1, car2]
+i = 1
+cars[i].model //Toyota Corolla
+
+---------x-----------------x-----------x-----------
+
+ARRAYS OF ARRAYS
+
+row1 = ["cross", "blank" , "blank"]
+row2 = ["blank", "circle", "cross"]
+row3 = ["blank", "blank" , "blank"]
+
+tictactoe = [row1, row2, row3] 
+
+---------x-----------------x-----------x-----------
+
+SOLITAIRE
+
+Stock/Waste: 
+- 24 cards at start
+
+Foundations:
+- 0 cards at start
+
+Tableaux:
+- 28 cards at start
+
+How to represent the data in each area?
+
+---------x-----------------x-----------x-----------
+
+SOLITARE
+
+TABLEAU is an array of array of cards
+
+tableaux_col1=["QH"]
+tableaux_col2=["AD", "QS"]
+tableuax_col3=["2H", "4D", "9C"]
+...
+
+tableaux = [tableaux_col1,tableaux_col2, ...]
+
+FOUNDATIONS
+Because there are 4 foundations (one for each suit),
+and cards can only be put in order (first card A, next
+card 2, next 3 etc.), only need to keep track of topmost
+card.
+
+FOUNDATIONS=["","","AC", "4D"] //first two foundations
+                               // don't contain cards
+                               // last two do, with the
+                               // values of topmost card
+                               // shown in array
+
+STOCK/WASTE a bit more complicated (Leave as exercise)
+
+The data reflects the state of the game.
+---------x-----------------x-----------x-----------
+
+JAVASCRIPT
+
+1. Declare variables like this
+    var num = 45;
+2. Statements end in semicolon
+3. Arrays
+   var jsarray = ["one", "two", "three"];
+   var first = jsarray[0]; //one
+4. Objects
+   var jsobject = {
+     name: "Mo",
+     number: "123"
+   };
+   var name = jsobject.name; //Mo
+
+---------x-----------------x-----------x-----------
+
+TESTING JAVASCRIPT
+
+Use web browser Dev Tools (F12) on 
+Firefox/Chrome/Internet Explorer (Console/Web Console)
+
+---------x-----------------x-----------x-----------
+
+NODERED
+
+1. Built on NodeJS, which is built on Javascript
+2. Program consists of nodes
+3. Two simple nodes are Inject and Debug
+   - Start program with Inject node
+   - Write "print statements" with Debug node 
+4. Like an assembly line:
+   - When one node completes its work, it sends
+     a message to the next node(s) 
+---------x-----------------x-----------x-----------
+
+NODERED MESSAGE
+
+It's a plain Javascript object
+
+msg = {
+    payload: "This is important data",
+    topic: "Important"
+};
+
+---------x-----------------x-----------x-----------
+
+NODERED FUNCTION NODE
+
+Used to alter the message.
+
+Basic Usage:
+
+var oldpayload = msg.payload;
+var newmsg = {};
+newmsg.payload = "I am altering the payload!";
+return newmsg; 
+---------x-----------------x-----------x-----------
+
